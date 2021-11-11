@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reminder_app/database_provider.dart';
-import 'package:reminder_app/routine_model.dart';
 import 'package:provider/provider.dart';
+import 'package:reminder_app/database_provider.dart';
 import 'package:reminder_app/dialog.dart';
 import 'package:reminder_app/routine_card.dart';
+import 'package:reminder_app/routine_model.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -13,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -21,6 +22,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return MyDialog();
       },
     );
+  }
+
+  Future _refreshData() async {
+    await Provider.of<ReminderAppDatabaseProvider>(context, listen: false)
+        .routines();
+    setState(() {});
   }
 
   @override
@@ -41,7 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 // data loaded:
                 final routines = snapshot.requireData;
                 return Center(
-                  child: ListView.builder(
+                  child: RefreshIndicator(
+                    onRefresh: _refreshData,
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
                     padding:
                         const EdgeInsets.only(top: 80.0, left: 20.0, right: 20),
                     itemCount: routines.length,
@@ -68,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: RoutineCard(routine));
                     },
+                  ),
                   ),
                 );
               }

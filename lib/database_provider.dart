@@ -41,7 +41,6 @@ class ReminderAppDatabaseProvider extends ChangeNotifier {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     notifyListeners();
-    print("inserted");
   }
 
   // A method that retrieves all the routines from the routines table.

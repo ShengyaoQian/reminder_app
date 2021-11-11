@@ -129,7 +129,7 @@ class _MyDialogState extends State<MyDialog> {
           },
         ),
         TextButton(
-          child: const Text('Add'),
+          child: const Text('Save'),
           onPressed: () {
             // Validate will return true if the form is valid, or false if
             // the form is invalid.
