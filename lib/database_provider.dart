@@ -55,10 +55,10 @@ class ReminderAppDatabaseProvider extends ChangeNotifier {
     return List.generate(maps.length, (i) {
       return Routine(
         id: maps[i]['id'],
-        title: maps[i]['title'],
+        title: '${maps[i]['title']}',
         starttimeUnix: maps[i]['starttimeUnix'],
         durationNumber: maps[i]['durationNumber'],
-        unit: maps[i]['unit'],
+        unit: '${maps[i]['unit']}',
       );
     });
   }
