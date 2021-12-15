@@ -38,6 +38,11 @@ class NotificationService {
         onSelectNotification: selectNotification);
   }
 
+
+  Future selectNotification(String? payload) async {
+    // haven't decided..
+  }
+
   Future<void> requestIOSPermissions() async {
     bool? permission = await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
