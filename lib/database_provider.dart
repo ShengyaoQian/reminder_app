@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:reminder_app/routine_model.dart';
+import 'package:reminder_app/notification_service.dart';
 
 class ReminderAppDatabaseProvider extends ChangeNotifier {
   static String dbName = "reminder_app_db";
@@ -41,6 +42,7 @@ class ReminderAppDatabaseProvider extends ChangeNotifier {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     notifyListeners();
+    NotificationService().scheduleNotifications(routine.id, routine.title, routine.durationNumber, routine.unit);
   }
 
   // A method that retrieves all the routines from the routines table.
@@ -71,12 +73,12 @@ class ReminderAppDatabaseProvider extends ChangeNotifier {
     await db.update(
       'routines',
       routine.toMap(),
-      // Ensure that the Dog has a matching id.
       where: 'id = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [routine.id],
     );
     notifyListeners();
+    NotificationService().cancelNotifications(routine.id);
+    NotificationService().scheduleNotifications(routine.id, routine.title, routine.durationNumber, routine.unit);
   }
 
   Future<void> deleteRoutine(int id) async {
@@ -86,12 +88,11 @@ class ReminderAppDatabaseProvider extends ChangeNotifier {
     // Remove the Dog from the database.
     await db.delete(
       'routines',
-      // Use a `where` clause to delete a specific dog.
       where: 'id = ?',
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );
     notifyListeners();
+    NotificationService().cancelNotifications(id);
   }
 
 

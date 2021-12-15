@@ -45,7 +45,10 @@ class RoutineCard extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text(routine.title),
-            trailing: Text("In ${_getDispalyNumber(routine.unit, routine.starttimeUnix, routine.durationNumber)} ${routine.unit}"),
+            trailing: Text(
+                "In ${_getDispalyNumber(routine.unit, routine.starttimeUnix, routine.durationNumber)} ${routine.unit}",
+                style: TextStyle(color: _getDispalyNumber(routine.unit, routine.starttimeUnix, routine.durationNumber) > 0 ? Colors.black : Colors.red),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

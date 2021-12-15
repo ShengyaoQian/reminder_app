@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:reminder_app/my_homepage.dart';
 import 'package:provider/provider.dart';
 import 'package:reminder_app/database_provider.dart';
+import 'package:reminder_app/notification_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init(); // <----
+  await NotificationService().requestIOSPermissions(); //
   runApp(const MyApp());
 }
 
