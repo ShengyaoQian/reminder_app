@@ -32,7 +32,7 @@ dependencies:
   sqflite:
   path:
   provider: ^6.0.0
-  flutter_launcher_icons: ^0.8.0
+  flutter_launcher_icons: ^0.9.0-nullsafety.0
   flutter_local_notifications:
 
   # The following adds the Cupertino Icons font to your application.
